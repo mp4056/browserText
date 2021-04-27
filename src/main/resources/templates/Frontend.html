@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<title>網頁記事本</title>
+</head>
+<body></body>
+<h2 align="center">網頁記事本</h2>
+
+<!-- 我的記事本列表 -->
+<table style="float:right">
+	<tr th:each="BrowserText : ${browserTextList}">
+		<td><button th:text="${BrowserText.getTitle()}"class="btn btn-primary" th:onclick="findBrowserTextById([[${BrowserText.getId()}]])">主題</button></td>
+	</tr>
+</table>
+
+<button >建立新記事本</button>
+
+<!-- 修改現有記事本 -->
+<form style="float:left">
+	<div th:each="DesignatedText : ${designatedText}" style="width:80px">
+	<input th:text="${DesignatedText.getTitle()}"></input>
+	<textarea th:text="${DesignatedText.getText()}" rows="50" cols="50"></textarea>
+	<button style="float:left">取消</button>
+	<button style="float:right">儲存</button>
+	</div>
+</form>
+
+
+<script>
+
+
+
+	function findBrowserTextById(id){
+		console.log('ajax initialized')
+		$.ajax({
+			url:"/find/"+id,
+			type:"Post",
+			dataType:"JSON",
+			success:function(obj){ 		
+			},
+			error: function(xhr,ajaxOptions,thrownError){
+				console.log(xhr.status);
+				console.log(thrownError);
+			}
+		})
+	}
+	</script>
+</html>
