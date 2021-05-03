@@ -18,4 +18,9 @@ public interface browserTextService {
 	List<BrowserTextModel> findBrowserTextById(String id);
 
 	List<BrowserTextModel> findAll();
+	
+	void createBrowserText(
+			String title,
+			String text,
+			String label);
 }
