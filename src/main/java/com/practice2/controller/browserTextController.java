@@ -1,4 +1,4 @@
-package com.browserText.controller;
+package com.practice2.controller;
 import java.util.List;
 
 import javax.management.AttributeValueExp;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.engine.AttributeName;
 
-import com.browserText.model.BrowserTextModel;
-import com.browserText.service.browserTextService;
+import com.practice2.model.BrowserTextModel;
+import com.practice2.service.browserTextService;
 
 @Controller
 @RequestMapping("/")

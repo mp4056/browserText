@@ -1,4 +1,4 @@
-package com.browserText.model;
+package com.practice2.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.browserText.service;
+package com.practice2.service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.browserText.DAO.BrowserTextRepository;
-import com.browserText.model.BrowserTextModel;
+import com.practice2.DAO.BrowserTextRepository;
+import com.practice2.model.BrowserTextModel;
 
 import javassist.expr.NewArray;
 

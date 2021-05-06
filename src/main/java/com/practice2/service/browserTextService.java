@@ -1,10 +1,10 @@
-package com.browserText.service;
+package com.practice2.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.browserText.model.BrowserTextModel;
+import com.practice2.model.BrowserTextModel;
 
 @Service
 public interface browserTextService {
