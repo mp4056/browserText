@@ -9,18 +9,15 @@ import com.practice2.model.BrowserTextModel;
 @Service
 public interface browserTextService {
 
-	BrowserTextModel saveBrowserText(BrowserTextModel browserTextModel);
+  BrowserTextModel saveBrowserText(BrowserTextModel browserTextModel);
 
-	void deleteBrowserTextById(String id);
+  void deleteBrowserTextById(String id);
 
-	void deleteAll();
-	
-	List<BrowserTextModel> findBrowserTextById(String id);
+  void deleteAll();
 
-	List<BrowserTextModel> findAll();
-	
-	void createBrowserText(
-			String title,
-			String text,
-			String label);
+  List<BrowserTextModel> findBrowserTextById(String id);
+
+  List<BrowserTextModel> findAll();
+
+  void createBrowserText(String title, String text, String label);
 }
