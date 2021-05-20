@@ -29,33 +29,33 @@ public class browserTextController {
   public String welcomePage(ModelMap model) {
     List<BrowserTextModel> allList = service.findAll();
     model.addAttribute("browserTextList", allList);
-    return "Frontend";
+    return "memo-frontend";
   }
 
   @DeleteMapping(value = "/{id}")
   public @ResponseBody String deleteBrowserTextById(@PathVariable String id) {
     service.deleteBrowserTextById(id);
-    return "Frontend";
+    return "memo-frontend";
   }
 
   @DeleteMapping(value = "/*")
   public @ResponseBody String deleteBrowserTextAll() {
     service.deleteAll();
-    return "Frontend";
+    return "memo-frontend";
   }
 
   @PutMapping(value = "/*")
   public @ResponseBody String saveBrowserText(
       BrowserTextModel browserTextModel) {
     service.saveBrowserText(browserTextModel);
-    return "Frontend";
+    return "memo-frontend";
   }
 
   @GetMapping(value = "/*")
   public String findAllBrowserText(ModelMap model) {
     List<BrowserTextModel> allList = service.findAll();
     model.addAttribute("browserTextList", allList);
-    return "Frontend";
+    return "memo-frontend";
   }
 
   @GetMapping(value = "/{id}")
@@ -64,7 +64,7 @@ public class browserTextController {
     System.out.println("id=" + id);
     List<BrowserTextModel> allList = service.findBrowserTextById(id);
     model.addAttribute("designatedText", allList);
-    return "Frontend";
+    return "memo-frontend";
   }
 
   @PostMapping(value = "/")
@@ -73,7 +73,7 @@ public class browserTextController {
       @RequestParam("label") String label) {
 
     service.createBrowserText(title, text, label);
-    return "Frontend";
+    return "memo-frontend";
   }
 
 }
