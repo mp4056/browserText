@@ -1,4 +1,4 @@
-package com.practice2.DAO;
+package com.practice2.repository;
 
 import java.util.List;
 

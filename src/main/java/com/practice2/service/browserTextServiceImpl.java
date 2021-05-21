@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.practice2.DAO.BrowserTextRepository;
+import com.practice2.repository.BrowserTextRepository;
 import com.practice2.model.BrowserTextModel;
 
 @Service
