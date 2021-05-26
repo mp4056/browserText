@@ -9,7 +9,7 @@ import com.practice2.repository.BrowserTextRepository;
 import com.practice2.model.BrowserTextModel;
 
 @Service
-public class browserTextServiceImpl implements browserTextService {
+public class BrowserTextServiceImpl implements BrowserTextService {
 
   @Autowired
   private BrowserTextRepository browserTextRepository;

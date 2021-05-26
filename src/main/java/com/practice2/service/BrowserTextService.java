@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.practice2.model.BrowserTextModel;
 
 @Service
-public interface browserTextService {
+public interface BrowserTextService {
 
   BrowserTextModel saveBrowserText(BrowserTextModel browserTextModel);
 
