@@ -1,79 +1,98 @@
 package com.practice2.controller;
 
-import java.util.List;
-
+import com.practice2.model.BrowserTextModel;
+import com.practice2.repository.BrowserTextRepository;
+import com.practice2.service.BrowserTextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.practice2.model.BrowserTextModel;
-import com.practice2.service.BrowserTextService;
+import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/memos")
 public class BrowserTextController {
 
   @Autowired
-  BrowserTextService service;
+  BrowserTextRepository browserTextRepository;
 
-  @RequestMapping("/")
-  public String welcomePage(ModelMap model) {
-    List<BrowserTextModel> allList = service.findAll();
-    model.addAttribute("browserTextList", allList);
+  @Autowired
+  BrowserTextService browserTextService;
+
+  //  @GetMapping
+  //  public String welcomePage(ModelMap model) {
+  //    List<BrowserTextModel> allList = service.findAll();
+  //    model.addAttribute("browserTextList", allList);
+  //    return "index";
+  //  }
+
+  @GetMapping
+  public String welcomePage(Model model) {
+    model.addAttribute("browserTextModel", new BrowserTextModel());
+    model.addAttribute("memoList", browserTextRepository.findAll());
+    return "index";
+
+  }
+
+  @PostMapping("/{id}")
+  public @ResponseBody
+  String deleteBrowserTextById(@PathVariable String id) {
+    browserTextService.deleteBrowserTextById(id);
     return "memo-frontend";
   }
 
-  @DeleteMapping(value = "/{id}")
-  public @ResponseBody String deleteBrowserTextById(@PathVariable String id) {
-    service.deleteBrowserTextById(id);
+  @DeleteMapping("/all")
+  public @ResponseBody
+  String deleteBrowserTextAll() {
+    browserTextService.deleteAll();
     return "memo-frontend";
   }
 
-  @DeleteMapping(value = "/*")
-  public @ResponseBody String deleteBrowserTextAll() {
-    service.deleteAll();
-    return "memo-frontend";
-  }
-
-  @PutMapping(value = "/*")
-  public @ResponseBody String saveBrowserText(
+  @PutMapping
+  public @ResponseBody
+  String saveBrowserText(
       BrowserTextModel browserTextModel) {
-    service.saveBrowserText(browserTextModel);
+    browserTextService.saveBrowserText(browserTextModel);
     return "memo-frontend";
   }
 
-  @GetMapping(value = "/*")
+  @GetMapping("/all")
   public String findAllBrowserText(ModelMap model) {
-    List<BrowserTextModel> allList = service.findAll();
+    List<BrowserTextModel> allList = browserTextService.findAll();
     model.addAttribute("browserTextList", allList);
     return "memo-frontend";
   }
 
-  @GetMapping(value = "/{id}")
-  public @ResponseBody String findBrowserTextById(@PathVariable String id,
+  @GetMapping("/{id}")
+  public @ResponseBody
+  String findBrowserTextById(@PathVariable String id,
       Model model) {
     System.out.println("id=" + id);
-    List<BrowserTextModel> allList = service.findBrowserTextById(id);
+    List<BrowserTextModel> allList = browserTextService.findBrowserTextById(id);
     model.addAttribute("designatedText", allList);
     return "memo-frontend";
   }
 
-  @PostMapping(value = "/")
-  public @ResponseBody String createBrowserText(
-      @RequestParam("title") String title, @RequestParam("text") String text,
-      @RequestParam("label") String label) {
+  //  @PostMapping
+  //  public @ResponseBody
+  //  String createBrowserText(
+  //      @RequestParam("title") String title, @RequestParam("text") String text,
+  //      @RequestParam("labels") Set<String> labels) {
+  //
+  //    browserTextService.createBrowserText(title, text, labels);
+  //    return "memo-frontend";
+  //  }
 
-    service.createBrowserText(title, text, label);
-    return "memo-frontend";
+  @PostMapping
+  public @ResponseBody
+  ModelAndView createBrowserText(
+      @ModelAttribute BrowserTextModel browserTextModel) {
+    browserTextRepository.save(browserTextModel);
+    ModelAndView mv = new ModelAndView("redirect:/memos");
+    return mv;
   }
 
 }

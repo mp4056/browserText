@@ -1,12 +1,14 @@
 package com.practice2.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import com.practice2.model.BrowserTextModel;
+import com.practice2.repository.BrowserTextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.practice2.repository.BrowserTextRepository;
-import com.practice2.model.BrowserTextModel;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class BrowserTextServiceImpl implements BrowserTextService {
@@ -46,14 +48,14 @@ public class BrowserTextServiceImpl implements BrowserTextService {
 
   @Override
   @Transactional
-  public void createBrowserText(String title, String text, String label) {
+  public void createBrowserText(String title, String text, Set<String> labels) {
     BrowserTextModel btm = new BrowserTextModel();
     LocalDateTime currentTime = LocalDateTime.now();
     btm.setTitle(title);
     btm.setTimestamp(currentTime);
     btm.setText(text);
     btm.setArchived(false);
-    btm.setLabel(label);
+    btm.setLabels(labels);
     browserTextRepository.save(btm);
   }
 

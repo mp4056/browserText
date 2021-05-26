@@ -1,22 +1,19 @@
 package com.practice2.model;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Data
 @Entity
 @Table(name = "browserText")
 public class BrowserTextModel {
+
+  public BrowserTextModel(){}
 
   @Id
   @GeneratedValue(generator = "system-uuid")
@@ -26,12 +23,14 @@ public class BrowserTextModel {
   private String title;
   @Column(name = "text")
   private String text;
-  @Column(name = "label")
-  private String label;
-  @Column(name = "timeStamp")
-  @CreatedDate
-  private LocalDateTime timestamp;
-  @Column(name = "isArchived") // 封存不在網頁上顯示
-  private boolean isArchived;
 
+  @Column(name = "timeStamp")
+//  @CreatedDate
+  private LocalDateTime timestamp = LocalDateTime.now();
+  @Column(name = "archived") // 封存不在網頁上顯示
+  private boolean archived = false;
+
+  @ElementCollection
+  @Column(name = "labels")
+  private Set<String> labels = new TreeSet<>();
 }
