@@ -1,5 +1,6 @@
 package com.practice2.controller;
 
+import com.practice2.controller.form.MemoForm;
 import com.practice2.model.BrowserTextModel;
 import com.practice2.repository.BrowserTextRepository;
 import com.practice2.service.BrowserTextService;
@@ -41,7 +42,8 @@ public class BrowserTextController {
       params = "delete")
   public @ResponseBody
   ModelAndView deleteBrowserTextById(Model model, @PathVariable Long id) {
-    BrowserTextModel browserTextModel = browserTextRepository.findById(id).get();
+    BrowserTextModel browserTextModel =
+        browserTextRepository.findById(id).get();
     browserTextRepository.delete(browserTextModel);
     model.addAttribute("browserTextModel", new BrowserTextModel());
     model.addAttribute("memoList", browserTextRepository.findAll());
@@ -59,11 +61,15 @@ public class BrowserTextController {
   @PostMapping(path = "/{id}",
       params = "update")
   public @ResponseBody
-  ModelAndView saveBrowserText(Model model, @PathVariable Long id) {
-    BrowserTextModel browserTextModel = browserTextRepository.findById(id).get();
-//    browserTextModel.setId(id);
-    browserTextRepository.save(browserTextModel);
-    model.addAttribute("browserTextModel", browserTextModel);
+  ModelAndView saveBrowserText(Model model, @PathVariable Long id,
+      @ModelAttribute
+          MemoForm memoForm) {
+    BrowserTextModel browserTextModel =
+        browserTextRepository.findById(id).get();
+    browserTextModel = new BrowserTextModel(memoForm);
+    browserTextModel.setId(id);
+    browserTextModel = browserTextRepository.save(browserTextModel);
+    model.addAttribute("browserTextModel", new BrowserTextModel());
     model.addAttribute("memoList", browserTextRepository.findAll());
     ModelAndView mv = new ModelAndView("index");
     return mv;

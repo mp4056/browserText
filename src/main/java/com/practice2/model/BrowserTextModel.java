@@ -1,19 +1,33 @@
 package com.practice2.model;
 
+import com.practice2.controller.form.MemoForm;
+import lombok.AccessLevel;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.TreeSet;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 @Entity
 @Table(name = "browserText")
 public class BrowserTextModel {
 
   public BrowserTextModel(){}
+
+  public BrowserTextModel(MemoForm memoForm){
+    title = memoForm.getTitle();
+    text = memoForm.getText();
+    if (memoForm.getLabels() != null) {
+      for (String label : memoForm.getLabels().split(",")) {
+        labels.add(label.trim());
+      }
+    }
+    archived = memoForm.isArchived();
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
