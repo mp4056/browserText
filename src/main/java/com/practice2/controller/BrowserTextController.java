@@ -30,10 +30,18 @@ public class BrowserTextController {
   //    return "index";
   //  }
 
+  boolean archived;
+
+  @ModelAttribute("archived")
+  boolean showArchived(@RequestParam(required = false) Boolean archived) {
+    return this.archived = archived != null ? archived : false;
+  }
+
   @GetMapping
   public String welcomePage(Model model) {
     model.addAttribute("browserTextModel", new BrowserTextModel());
-    model.addAttribute("memoList", browserTextRepository.findAll());
+    model.addAttribute("memoList",
+        browserTextRepository.findAllByArchived(archived));
     return "index";
 
   }
@@ -46,7 +54,8 @@ public class BrowserTextController {
         browserTextRepository.findById(id).get();
     browserTextRepository.delete(browserTextModel);
     model.addAttribute("browserTextModel", new BrowserTextModel());
-    model.addAttribute("memoList", browserTextRepository.findAll());
+    model.addAttribute("memoList",
+        browserTextRepository.findAllByArchived(archived));
     ModelAndView mv = new ModelAndView("index");
     return mv;
   }
@@ -70,10 +79,24 @@ public class BrowserTextController {
     browserTextModel.setId(id);
     browserTextModel = browserTextRepository.save(browserTextModel);
     model.addAttribute("browserTextModel", new BrowserTextModel());
-    model.addAttribute("memoList", browserTextRepository.findAll());
+    model.addAttribute("memoList",
+        browserTextRepository.findAllByArchived(archived));
     ModelAndView mv = new ModelAndView("index");
     return mv;
   }
+
+  //  @PostMapping(path = "/{id}",
+  //      params = "update")
+  //  public @ResponseBody
+  //  ModelAndView saveBrowserText(
+  //      @ModelAttribute
+  //          BrowserTextModel browserTextModel, Model model) {
+  //    browserTextRepository.save(browserTextModel);
+  //    model.addAttribute("browserTextModel", new BrowserTextModel());
+  //    model.addAttribute("memoList", browserTextRepository.findAll());
+  //    ModelAndView mv = new ModelAndView("index");
+  //    return mv;
+  //  }
 
   @GetMapping("/all")
   public String findAllBrowserText(ModelMap model) {
@@ -90,7 +113,8 @@ public class BrowserTextController {
     BrowserTextModel browserTextModel =
         browserTextRepository.findById(id).get();
     model.addAttribute("browserTextModel", browserTextModel);
-    model.addAttribute("memoList", browserTextRepository.findAll());
+    model.addAttribute("memoList",
+        browserTextRepository.findAllByArchived(archived));
     ModelAndView mv = new ModelAndView("index");
     return mv;
   }

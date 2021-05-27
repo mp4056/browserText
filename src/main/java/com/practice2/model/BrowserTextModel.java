@@ -16,9 +16,9 @@ import java.util.TreeSet;
 @Table(name = "browserText")
 public class BrowserTextModel {
 
-  public BrowserTextModel(){}
+  public BrowserTextModel() {}
 
-  public BrowserTextModel(MemoForm memoForm){
+  public BrowserTextModel(MemoForm memoForm) {
     title = memoForm.getTitle();
     text = memoForm.getText();
     if (memoForm.getLabels() != null) {
@@ -38,7 +38,7 @@ public class BrowserTextModel {
   private String text;
 
   @Column(name = "timeStamp")
-//  @CreatedDate
+  //  @CreatedDate
   private LocalDateTime timestamp = LocalDateTime.now();
   @Column(name = "archived") // 封存不在網頁上顯示
   private boolean archived = false;

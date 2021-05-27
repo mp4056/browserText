@@ -20,4 +20,6 @@ public interface BrowserTextRepository
 
   void deleteAll();
 
+  List<BrowserTextModel> findAllByArchived(boolean archived);
+
 }
