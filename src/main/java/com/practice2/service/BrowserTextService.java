@@ -11,11 +11,11 @@ public interface BrowserTextService {
 
   BrowserTextModel saveBrowserText(BrowserTextModel browserTextModel);
 
-  void deleteBrowserTextById(String id);
+  void deleteBrowserTextById(Long id);
 
   void deleteAll();
 
-  List<BrowserTextModel> findBrowserTextById(String id);
+  List<BrowserTextModel> findBrowserTextById(Long id);
 
   List<BrowserTextModel> findAll();
 

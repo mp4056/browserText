@@ -37,11 +37,16 @@ public class BrowserTextController {
 
   }
 
-  @PostMapping("/{id}")
+  @PostMapping(path = "/{id}",
+      params = "delete")
   public @ResponseBody
-  String deleteBrowserTextById(@PathVariable String id) {
-    browserTextService.deleteBrowserTextById(id);
-    return "memo-frontend";
+  ModelAndView deleteBrowserTextById(Model model, @PathVariable Long id) {
+    BrowserTextModel browserTextModel = browserTextRepository.findById(id).get();
+    browserTextRepository.delete(browserTextModel);
+    model.addAttribute("browserTextModel", new BrowserTextModel());
+    model.addAttribute("memoList", browserTextRepository.findAll());
+    ModelAndView mv = new ModelAndView("index");
+    return mv;
   }
 
   @DeleteMapping("/all")
@@ -51,12 +56,17 @@ public class BrowserTextController {
     return "memo-frontend";
   }
 
-  @PutMapping
+  @PostMapping(path = "/{id}",
+      params = "update")
   public @ResponseBody
-  String saveBrowserText(
-      BrowserTextModel browserTextModel) {
-    browserTextService.saveBrowserText(browserTextModel);
-    return "memo-frontend";
+  ModelAndView saveBrowserText(Model model, @PathVariable Long id) {
+    BrowserTextModel browserTextModel = browserTextRepository.findById(id).get();
+//    browserTextModel.setId(id);
+    browserTextRepository.save(browserTextModel);
+    model.addAttribute("browserTextModel", browserTextModel);
+    model.addAttribute("memoList", browserTextRepository.findAll());
+    ModelAndView mv = new ModelAndView("index");
+    return mv;
   }
 
   @GetMapping("/all")
@@ -68,12 +78,15 @@ public class BrowserTextController {
 
   @GetMapping("/{id}")
   public @ResponseBody
-  String findBrowserTextById(@PathVariable String id,
+  ModelAndView findBrowserTextById(@PathVariable Long id,
       Model model) {
     System.out.println("id=" + id);
-    List<BrowserTextModel> allList = browserTextService.findBrowserTextById(id);
-    model.addAttribute("designatedText", allList);
-    return "memo-frontend";
+    BrowserTextModel browserTextModel =
+        browserTextRepository.findById(id).get();
+    model.addAttribute("browserTextModel", browserTextModel);
+    model.addAttribute("memoList", browserTextRepository.findAll());
+    ModelAndView mv = new ModelAndView("index");
+    return mv;
   }
 
   //  @PostMapping

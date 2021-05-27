@@ -55,7 +55,8 @@
         </nav>
 
         <!-- 建立新記事本 -->
-        <form th:action="@{/memos}" th:object="${browserTextModel}" method="POST">
+        <form th:action="@{/memos/{id}(id = ${browserTextModel.id})}"
+              th:object="${browserTextModel}" method="POST">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" required
@@ -78,7 +79,16 @@
                        id="archived" th:field="*{archived}">
                 <label class="form-check-label" for="archived">Archived</label>
             </div>
-            <button type="submit" class="btn btn-primary">建立新記事本</button>
+            <button th:unless="${browserTextModel.id}" type="submit"
+                    class="btn btn-primary">建立新記事本
+            </button>
+            <button th:if="${browserTextModel.id}" type="submit"
+                    class="btn btn-primary" name="update">編輯
+            </button>
+            <button th:if="${browserTextModel.id}" type="submit"
+                    class="btn btn-primary" name="delete">刪除
+            </button>
+
         </form>
 
         <h2>我的記事本清單</h2>
@@ -86,9 +96,12 @@
             <li class="list-group-item" th:each="memoList:${memoList}">
                 <div class="media">
                     <div class="media-body">
-                        <h5 class="mt-0" th:text="${memoList.title}"></h5>
+                        <h5 class="mt-0"><a th:text="${memoList.title}"
+                                            th:href="@{/memos/{id}(id = ${memoList.id})}"></a>
+                        </h5>
                         <p th:text="${memoList.text}"></p>
-                        <p class="mt-0" th:text="${memoList.timestamp}"></p>
+                        <p th:text="${memoList.labels}"></p>
+                        <span th:text="${'創建時間 ' + memoList.timestamp}"></span>
                     </div>
                 </div>
             </li>

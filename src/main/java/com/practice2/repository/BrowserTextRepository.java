@@ -8,15 +8,15 @@ import java.util.List;
 
 @Repository
 public interface BrowserTextRepository
-    extends JpaRepository<BrowserTextModel, String> {
+    extends JpaRepository<BrowserTextModel, Long> {
 
-  List<BrowserTextModel> findBrowserTextById(String id);
+  List<BrowserTextModel> findBrowserTextById(Long id);
 
   List<BrowserTextModel> findBrowserTextByTitle(String title);
 
   List<BrowserTextModel> findAll();
 
-  List<BrowserTextModel> deleteBrowserTextById(String id);
+  List<BrowserTextModel> deleteBrowserTextById(Long id);
 
   void deleteAll();
 

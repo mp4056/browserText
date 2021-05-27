@@ -24,13 +24,13 @@ public class BrowserTextServiceImpl implements BrowserTextService {
 
   @Override
   @Transactional
-  public List<BrowserTextModel> findBrowserTextById(String id) {
+  public List<BrowserTextModel> findBrowserTextById(Long id) {
     return browserTextRepository.findBrowserTextById(id);
   }
 
   @Override
   @Transactional
-  public void deleteBrowserTextById(String id) {
+  public void deleteBrowserTextById(Long id) {
     browserTextRepository.deleteById(id);
   }
 

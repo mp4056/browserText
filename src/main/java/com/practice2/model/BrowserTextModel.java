@@ -16,9 +16,8 @@ public class BrowserTextModel {
   public BrowserTextModel(){}
 
   @Id
-  @GeneratedValue(generator = "system-uuid")
-  @GenericGenerator(name = "system-uuid", strategy = "uuid")
-  private String id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
   @Column(name = "title")
   private String title;
   @Column(name = "text")
