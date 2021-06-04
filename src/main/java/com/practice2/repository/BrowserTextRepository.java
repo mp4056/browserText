@@ -12,11 +12,7 @@ public interface BrowserTextRepository
 
   List<BrowserTextModel> findBrowserTextById(Long id);
 
-  List<BrowserTextModel> findBrowserTextByTitle(String title);
-
   List<BrowserTextModel> findAll();
-
-  List<BrowserTextModel> deleteBrowserTextById(Long id);
 
   void deleteAll();
 

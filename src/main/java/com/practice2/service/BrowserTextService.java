@@ -4,7 +4,6 @@ import com.practice2.model.BrowserTextModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public interface BrowserTextService {
@@ -19,5 +18,4 @@ public interface BrowserTextService {
 
   List<BrowserTextModel> findAll();
 
-  void createBrowserText(String title, String text, Set<String> labels);
 }

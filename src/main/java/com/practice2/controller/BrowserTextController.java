@@ -7,11 +7,8 @@ import com.practice2.service.BrowserTextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/memos")
@@ -23,14 +20,15 @@ public class BrowserTextController {
   @Autowired
   BrowserTextService browserTextService;
 
-  //  @GetMapping
-  //  public String welcomePage(ModelMap model) {
-  //    List<BrowserTextModel> allList = service.findAll();
-  //    model.addAttribute("browserTextList", allList);
-  //    return "index";
-  //  }
-
   boolean archived;
+  String labelFilter;
+
+  @ModelAttribute("labelFilter")
+  String labelFilter(
+      @RequestParam(required = false,
+          defaultValue = "") String labelFilter) {
+    return this.labelFilter = labelFilter;
+  }
 
   @ModelAttribute("archived")
   boolean showArchived(@RequestParam(required = false) Boolean archived) {
@@ -85,26 +83,6 @@ public class BrowserTextController {
     return mv;
   }
 
-  //  @PostMapping(path = "/{id}",
-  //      params = "update")
-  //  public @ResponseBody
-  //  ModelAndView saveBrowserText(
-  //      @ModelAttribute
-  //          BrowserTextModel browserTextModel, Model model) {
-  //    browserTextRepository.save(browserTextModel);
-  //    model.addAttribute("browserTextModel", new BrowserTextModel());
-  //    model.addAttribute("memoList", browserTextRepository.findAll());
-  //    ModelAndView mv = new ModelAndView("index");
-  //    return mv;
-  //  }
-
-  @GetMapping("/all")
-  public String findAllBrowserText(ModelMap model) {
-    List<BrowserTextModel> allList = browserTextService.findAll();
-    model.addAttribute("browserTextList", allList);
-    return "memo-frontend";
-  }
-
   @GetMapping("/{id}")
   public @ResponseBody
   ModelAndView findBrowserTextById(@PathVariable Long id,
@@ -119,14 +97,14 @@ public class BrowserTextController {
     return mv;
   }
 
-  //  @PostMapping
-  //  public @ResponseBody
-  //  String createBrowserText(
-  //      @RequestParam("title") String title, @RequestParam("text") String text,
-  //      @RequestParam("labels") Set<String> labels) {
+  //  @GetMapping("/search")
+  //  public ModelAndView searchByLabels(Model model){
   //
-  //    browserTextService.createBrowserText(title, text, labels);
-  //    return "memo-frontend";
+  //    model.addAttribute("browserTextModel", new BrowserTextModel());
+  //    model.addAttribute("memoList",
+  //        browserTextRepository.findAllByArchived(archived));
+  //    ModelAndView mv = new ModelAndView("index");
+  //    return mv;
   //  }
 
   @PostMapping

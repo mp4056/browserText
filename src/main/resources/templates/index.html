@@ -17,6 +17,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
             integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
             crossorigin="anonymous"></script>
+    <style>
+        h2, .title-content {
+            margin-top: 1em;
+        }
+
+    </style>
     <title>網頁記事本</title>
 </head>
 <body>
@@ -44,9 +50,11 @@
                     </li>
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search"
-                           placeholder="Search" aria-label="Search">
+                <form class="form-inline my-2 my-lg-0" method="GET"
+                      th:action="@{/search}">
+                    <input class="form-control mr-sm-2" type="text"
+                           placeholder="Search" aria-label="Search"
+                           name="labelFilter" th:value="${labelFilter}">
                     <button class="btn btn-outline-success my-2 my-sm-0"
                             type="submit">
                         Search
@@ -58,7 +66,7 @@
         <!-- 建立新記事本 -->
         <form th:action="@{/memos/{id}(id = ${browserTextModel.id})}"
               th:object="${browserTextModel}" method="POST">
-            <div class="form-group">
+            <div class="form-group title-content">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" required
                        placeholder="請輸入標題" th:field="*{title}">

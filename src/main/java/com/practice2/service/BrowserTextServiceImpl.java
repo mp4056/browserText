@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class BrowserTextServiceImpl implements BrowserTextService {
@@ -44,19 +42,6 @@ public class BrowserTextServiceImpl implements BrowserTextService {
   @Transactional
   public List<BrowserTextModel> findAll() {
     return browserTextRepository.findAll();
-  }
-
-  @Override
-  @Transactional
-  public void createBrowserText(String title, String text, Set<String> labels) {
-    BrowserTextModel btm = new BrowserTextModel();
-    LocalDateTime currentTime = LocalDateTime.now();
-    btm.setTitle(title);
-    btm.setTimestamp(currentTime);
-    btm.setText(text);
-    btm.setArchived(false);
-    btm.setLabels(labels);
-    browserTextRepository.save(btm);
   }
 
 }
