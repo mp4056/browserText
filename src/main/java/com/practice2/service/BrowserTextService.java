@@ -18,4 +18,7 @@ public interface BrowserTextService {
 
   List<BrowserTextModel> findAll();
 
+  List<BrowserTextModel> findAllByByArchivedAndLabelFilter(boolean archived,
+      String labelFilter);
+
 }

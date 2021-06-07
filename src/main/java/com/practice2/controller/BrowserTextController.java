@@ -97,15 +97,15 @@ public class BrowserTextController {
     return mv;
   }
 
-  //  @GetMapping("/search")
-  //  public ModelAndView searchByLabels(Model model){
-  //
-  //    model.addAttribute("browserTextModel", new BrowserTextModel());
-  //    model.addAttribute("memoList",
-  //        browserTextRepository.findAllByArchived(archived));
-  //    ModelAndView mv = new ModelAndView("index");
-  //    return mv;
-  //  }
+  @GetMapping("/search")
+  public ModelAndView searchByLabels(Model model) {
+    model.addAttribute("browserTextModel", new BrowserTextModel());
+    model.addAttribute("memoList",
+        browserTextService
+            .findAllByByArchivedAndLabelFilter(archived, labelFilter));
+    ModelAndView mv = new ModelAndView("index");
+    return mv;
+  }
 
   @PostMapping
   public @ResponseBody
