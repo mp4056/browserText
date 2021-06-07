@@ -51,11 +51,11 @@
                       th:action="@{/memos/search}">
                     <input type="hidden" name="archived" th:value="${archived}">
                     <input class="form-control mr-sm-2" type="text"
-                           placeholder="Search" aria-label="Search"
+                           placeholder="請輸入標籤過濾記事本" aria-label="Search"
                            name="labelFilter" th:value="${labelFilter}">
                     <button class="btn btn-outline-success my-2 my-sm-0"
                             type="submit">
-                        Search
+                        Filter
                     </button>
                 </form>
             </div>
